@@ -14,21 +14,40 @@ void solve()
 {
 	readVar(int, y);
 	readVar(int, x);
-	ll upperPower2 = 1;
 
-	if (x == 0 && y == 0) {
-		cout << '1' << endl;
-		return ;
-	}
+	ll maxXY = max(x, y);
+	ll minXY = min(x, y);
 
-	int maxXY = max(x, y);
-	int minXY = min(x, y);
+	bool even = maxXY % 2 == 0;
 
 	ll from = (maxXY - 1) * (maxXY - 1) + 1;
 	ll to = maxXY * maxXY;
 
-	// TODO: complete
+	// cout << "from " << from << " to " << to << endl;
+
+	// ll result = 0;
+	// if (x > y) {
+	// 	if (even)
+	// 		result = from + (minXY - 1);
+	// 	else
+	// 		result = to - (minXY - 1);
+	// } else {
+	// 	if (even)
+	// 		result = to - (minXY - 1);
+	// 	else
+	// 		result = from + (minXY - 1);
+	// }
+
+	bool XxorE = (x > y) xor even;
+
+	ll result = !XxorE * (from + (minXY - 1)) + XxorE * (to - (minXY - 1));
+
+	cout << result << endl;
 }
+
+// X*E*F + X*!E*T + !X*E*T + !X*!E*F
+// F*(X*E + !X*!E) + (X*!E + !X*E)* T
+// F * (X xnor E) + (X xor E) * T
 
 int main() {
 	ios_base::sync_with_stdio(false);
